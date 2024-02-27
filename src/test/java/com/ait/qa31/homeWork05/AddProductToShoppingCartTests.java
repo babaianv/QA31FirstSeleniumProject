@@ -1,6 +1,5 @@
 package com.ait.qa31.homeWork05;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -13,40 +12,27 @@ public class AddProductToShoppingCartTests extends TestBase{
 
     @BeforeMethod
     public void precondition(){
-        if (!isElementPresent(By.cssSelector("[href='/login']"))){
-            click(By.cssSelector("[href='/logout']"));
+        if (!isLoginLinkPresent()){
+            clickOnSignOutButton();
         }
 
-        click(By.cssSelector("[href='/login']"));
-        type(By.cssSelector("#Email"),"babqa123@gmail.com");
-        type(By.cssSelector("#Password"), "Babval1807");
-        click(By.cssSelector(".button-1.login-button"));
+        clickOnLoginLink();
+        fillLoginForm("babqa123@gmail.com", "Babval1807");
+        clickLoginButton();
     }
 
     @Test
     public void addProductToCartTest(){
-        click(By.cssSelector(".item-box:nth-child(3) .button-2.product-box-add-to-cart-button"));
-        click(By.cssSelector("[href='/cart']"));
+        findElement();
+        addToCard();
 
         Assert.assertTrue(isProductExistsByName("14.1-inch Laptop"));
     }
 
     @AfterMethod
     public void postCondition(){
-        click(By.name("removefromcart"));
-        click(By.name("updatecart"));
+        removeFromCart();
     }
-    public boolean isProductExistsByName(String text){
-
-        List<WebElement> products = driver.findElements(By.cssSelector("[href='/141-inch-laptop']"));
-
-        for (WebElement product : products){
-            if (product.getText().contains(text))
-                return true;
-        }
-        return false;
-    }
-
 
 }
 
