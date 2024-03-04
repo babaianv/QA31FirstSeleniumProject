@@ -1,4 +1,4 @@
-package com.ait.qa31.homeWork05;
+package com.ait.qa31;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -16,15 +16,11 @@ import java.util.List;
 public class TestBase {
     static WebDriver driver;
 
-    public static By isPresentProductByName() {
-        return By.cssSelector("[href='/141-inch-laptop']");
-    }
 
     @BeforeSuite
     public void setUp(){
         driver = new ChromeDriver();
         driver.get("https://demowebshop.tricentis.com/");
-
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
@@ -47,6 +43,16 @@ public class TestBase {
         driver.findElement(locator).click();
     }
 
+    public static void clickRegisterLink() {
+        driver.findElement(By.cssSelector("[href='/register']")).click();
+    }
+
+
+    public static void clickRegisterButton() {
+        driver.findElement(By.name("register-button")).click();
+    }
+
+
     public boolean isAlertAppears(){
         Alert alert = new WebDriverWait(driver, Duration.ofSeconds(15))
                 .until(ExpectedConditions.alertIsPresent());
@@ -63,13 +69,16 @@ public class TestBase {
         click(By.cssSelector(".button-1.login-button"));
     }
 
-    public void fillLoginForm(String email, String password) {
-        type(By.cssSelector("#Email"), email);
-        type(By.cssSelector("#Password"), password);
+    public void fillLoginForm(User user) {
+        type(By.cssSelector("#Email"), user.email);
+        type(By.cssSelector("#Password"), user.password);
     }
 
     public void clickOnLoginLink() {
         click(By.cssSelector("[href='/login']"));
+    }
+    public boolean isLogOutButtonPresent() {
+        return isElementPresent(By.cssSelector("[href='/logout']"));
     }
 
     public void clickOnSignOutButton() {
@@ -82,6 +91,10 @@ public class TestBase {
 
     public void addToCard() {
         click(By.cssSelector("[href='/cart']"));
+    }
+
+    public static By isPresentProductByName() {
+        return By.cssSelector("[href='/141-inch-laptop']");
     }
 
     public void findElement() {
@@ -102,6 +115,19 @@ public class TestBase {
                 return true;
         }
         return false;
+    }
+
+    public void fillRegisterForm(User user) {
+        click(By.name("FirstName"));
+        type(By.name("FirstName"),user.getFirstName());
+        click(By.name("LastName"));
+        type(By.name("LastName"),user.getLastName());
+        click(By.name("Email"));
+        type(By.name("Email"),user.getEmail());
+        click(By.name("Password"));
+        type(By.name("Password"),user.getPassword());
+        click(By.name("ConfirmPassword"));
+        type(By.name("ConfirmPassword"),user.getConfirmPassword());
     }
 }
 

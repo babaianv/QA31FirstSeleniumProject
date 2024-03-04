@@ -1,14 +1,11 @@
-package com.ait.qa31.homeWork05;
+package com.ait.qa31;
 
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.List;
-
-public class AddProductToShoppingCartTests extends TestBase{
+public class AddProductToShoppingCartTests extends TestBase {
 
     @BeforeMethod
     public void precondition(){
@@ -17,7 +14,7 @@ public class AddProductToShoppingCartTests extends TestBase{
         }
 
         clickOnLoginLink();
-        fillLoginForm("babqa123@gmail.com", "Babval1807");
+        fillLoginForm(new User().setEmail("babqa123@gmail.com").setPassword("Babval1807"));
         clickLoginButton();
     }
 
