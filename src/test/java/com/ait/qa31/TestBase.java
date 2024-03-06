@@ -22,10 +22,10 @@ public class TestBase {
         driver = new ChromeDriver();
         driver.get("https://demowebshop.tricentis.com/");
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
     }
 
-    @AfterSuite
+    @AfterSuite(enabled = false)
     public void tearDown(){
         driver.quit();
     }
@@ -70,8 +70,8 @@ public class TestBase {
     }
 
     public void fillLoginForm(User user) {
-        type(By.cssSelector("#Email"), user.email);
-        type(By.cssSelector("#Password"), user.password);
+        type(By.cssSelector("#Email"), user.getEmail());
+        type(By.cssSelector("#Password"), user.getPassword());
     }
 
     public void clickOnLoginLink() {
@@ -119,15 +119,16 @@ public class TestBase {
 
     public void fillRegisterForm(User user) {
         click(By.name("FirstName"));
-        type(By.name("FirstName"),user.getFirstName());
+        type(By.name("FirstName"), user.getFirstName());
         click(By.name("LastName"));
-        type(By.name("LastName"),user.getLastName());
+        type(By.name("LastName"), user.getLastName());
         click(By.name("Email"));
-        type(By.name("Email"),user.getEmail());
+        type(By.name("Email"), user.getEmail());
         click(By.name("Password"));
-        type(By.name("Password"),user.getPassword());
+        type(By.name("Password"), user.getPassword());
         click(By.name("ConfirmPassword"));
-        type(By.name("ConfirmPassword"),user.getConfirmPassword());
+        type(By.name("ConfirmPassword"), user.getPassword()); // Передаем пароль для подтверждения
     }
+
 }
 

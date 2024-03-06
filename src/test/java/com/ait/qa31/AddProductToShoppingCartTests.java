@@ -14,7 +14,9 @@ public class AddProductToShoppingCartTests extends TestBase {
         }
 
         clickOnLoginLink();
-        fillLoginForm(new User().setEmail("babqa123@gmail.com").setPassword("Babval1807"));
+        fillLoginForm(new User()
+                .setEmail("babqa123@gmail.com")
+                .setPassword("Babval1807"));
         clickLoginButton();
     }
 
